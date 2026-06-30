@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Ahmed Khan — WordPress Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-alt:#F1F4F9;
+    --ink:#10141C;
+    --muted:#5C6470;
+    --line:#E1E5EC;
+    --blue:#2F5EFF;
+    --blue-deep:#13267A;
+    --amber:#F2A93B;
+    --green:#1FAA63;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:1080px; margin:0 auto;
+  }
+  .nav-mark{
+    font-family:var(--mono); font-weight:500; font-size:14px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .nav-mark .dot{width:8px; height:8px; border-radius:50%; background:var(--green); display:inline-block; box-shadow:0 0 0 3px rgba(31,170,99,0.15);}
+  .nav-links{display:flex; gap:28px; font-size:14px; font-weight:500;}
+  .nav-links a{color:var(--muted); transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    font-family:var(--mono); font-size:13px; padding:9px 16px;
+    border:1px solid var(--ink); border-radius:6px;
+  }
+  .nav-cta:hover{background:var(--ink); color:#fff;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 64px; position:relative; overflow:hidden;}
+  .hero-grid{
+    position:absolute; inset:0; z-index:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:linear-gradient(to bottom, black, transparent 85%);
+    mask-image:linear-gradient(to bottom, black, transparent 85%);
+    opacity:0.6;
+  }
+  .hero-inner{position:relative; z-index:1;}
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--blue);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow .line{width:30px; height:1px; background:var(--blue);}
+  h1.title{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(36px, 6vw, 62px);
+    line-height:1.06; letter-spacing:-0.02em;
+    max-width:780px; color:var(--ink);
+  }
+  h1.title .accent{color:var(--blue);}
+  .hero-sub{
+    margin-top:24px; max-width:560px; font-size:18px; color:var(--muted);
+  }
+  .hero-actions{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn-primary{
+    font-family:var(--body); font-weight:600; font-size:15px;
+    background:var(--ink); color:#fff; padding:14px 24px; border-radius:8px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(16,20,28,0.18);}
+  .btn-secondary{
+    font-family:var(--body); font-weight:600; font-size:15px;
+    border:1px solid var(--line); padding:14px 24px; border-radius:8px;
+    display:inline-flex; align-items:center; gap:8px; color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-secondary:hover{border-color:var(--ink); background:var(--bg-alt);}
+
+  /* stat strip */
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    margin-top:64px;
+  }
+  .stat{padding:26px 28px; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:var(--display); font-weight:700; font-size:30px; color:var(--ink);}
+  .stat .label{font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.04em;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:84px 0;}
+  .section-alt{background:var(--bg-alt);}
+  .sec-head{margin-bottom:48px; max-width:620px;}
+  .sec-eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--blue);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;
+  }
+  .sec-title{
+    font-family:var(--display); font-weight:700; font-size:clamp(26px,3.6vw,36px);
+    letter-spacing:-0.01em;
+  }
+  .sec-desc{margin-top:14px; color:var(--muted); font-size:16px;}
+
+  /* ---------- PROJECT CARDS (browser-chrome signature) ---------- */
+  .projects-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;
+  }
+  .card{
+    border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    background:#fff;
+    transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .card:hover{box-shadow:0 14px 30px rgba(16,20,28,0.08); transform:translateY(-3px); border-color:#D3D9E3;}
+  .chrome{
+    background:#EEF1F6; padding:10px 14px; display:flex; align-items:center; gap:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .chrome .dots{display:flex; gap:6px;}
+  .chrome .dots span{width:8px; height:8px; border-radius:50%; background:#C7CCD6;}
+  .chrome .urlbar{
+    flex:1; background:#fff; border:1px solid var(--line); border-radius:6px;
+    padding:5px 10px; font-family:var(--mono); font-size:11.5px; color:var(--muted);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .card-body{padding:22px;}
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px;}
+  .card-title{font-family:var(--display); font-weight:600; font-size:18px;}
+  .badge{
+    font-family:var(--mono); font-size:10.5px; padding:4px 9px; border-radius:20px;
+    white-space:nowrap; text-transform:uppercase; letter-spacing:.03em; font-weight:500;
+  }
+  .badge.live{background:rgba(31,170,99,0.1); color:var(--green);}
+  .badge.progress{background:rgba(242,169,59,0.16); color:#9C6B0E;}
+  .card-desc{color:var(--muted); font-size:14.5px; margin-bottom:16px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+  .tag{font-family:var(--mono); font-size:11px; background:var(--bg-alt); color:var(--ink); padding:4px 9px; border-radius:5px;}
+  .card-link{
+    font-family:var(--body); font-weight:600; font-size:14px; color:var(--blue);
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .card-link svg{transition:transform .15s ease;}
+  .card:hover .card-link svg{transform:translate(2px,-2px);}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .skill-card{
+    border:1px solid var(--line); border-radius:10px; padding:24px; background:#fff;
+  }
+  .skill-card .icon{
+    width:38px; height:38px; border-radius:9px; background:var(--blue-deep);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+  }
+  .skill-card h3{font-family:var(--display); font-size:16.5px; font-weight:600; margin-bottom:8px;}
+  .skill-card p{color:var(--muted); font-size:14px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    background:var(--ink); color:#fff; border-radius:16px;
+    padding:56px 44px; position:relative; overflow:hidden;
+  }
+  .contact-grid{
+    position:absolute; inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:42px 42px;
+  }
+  .contact-inner{position:relative; z-index:1; display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap;}
+  .contact h2{font-family:var(--display); font-weight:700; font-size:clamp(26px,4vw,38px); max-width:480px; line-height:1.15;}
+  .contact .sub{color:rgba(255,255,255,0.6); margin-top:14px; max-width:420px; font-size:15px;}
+  .contact-links{display:flex; flex-direction:column; gap:14px;}
+  .contact-link{
+    font-family:var(--mono); font-size:14.5px; display:flex; align-items:center; gap:10px;
+    border:1px solid rgba(255,255,255,0.18); padding:13px 18px; border-radius:8px;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .contact-link:hover{background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.4);}
+
+  footer{padding:32px 0; text-align:center; font-family:var(--mono); font-size:12.5px; color:var(--muted);}
+
+  @media (max-width:760px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(2){border-right:none;}
+    .projects-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .contact-inner{align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> AHMED.DEV</div>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Hire me →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="line"></span> AVAILABLE FOR PROJECTS</div>
+    <h1 class="title">I build <span class="accent">WordPress websites</span> that go from idea to live URL.</h1>
+    <p class="hero-sub">Muhammad Ahmed Khan — WordPress Developer. I design, build, and launch custom WordPress sites for businesses, blogs, and online stores, end to end.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#work">View projects ↓</a>
+      <a class="btn-secondary" href="mailto:ahmed.devxpertz@gmail.com">Email me</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">8</div><div class="label">Sites built</div></div>
+      <div class="stat"><div class="num">5</div><div class="label">Live & indexed</div></div>
+      <div class="stat"><div class="num">100%</div><div class="label">WordPress</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">In progress</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Selected work</div>
+      <h2 class="sec-title">Projects I've designed and launched</h2>
+      <p class="sec-desc">A mix of e-commerce stores, content sites, and business websites — each built on WordPress from the ground up.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">livinitupfishingcaps.com</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Livin It Up Fishing Caps</div><span class="badge live">Live</span></div>
+          <p class="card-desc">E-commerce store for fishing caps and outdoor headwear, built for product browsing and online sales.</p>
+          <div class="tag-row"><span class="tag">WooCommerce</span><span class="tag">E-commerce</span></div>
+          <a class="card-link" href="https://livinitupfishingcaps.com" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">zazdigitalsolutions.com</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Zaz Digital Solutions</div><span class="badge live">Live</span></div>
+          <p class="card-desc">Business website for a digital solutions agency, showcasing services and generating client inquiries.</p>
+          <div class="tag-row"><span class="tag">Business site</span><span class="tag">Lead gen</span></div>
+          <a class="card-link" href="https://zazdigitalsolutions.com" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">heartofasinglemother.com</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Heart of a Single Mother</div><span class="badge live">Live</span></div>
+          <p class="card-desc">Blog and community platform for single mothers, built around content publishing and reader engagement.</p>
+          <div class="tag-row"><span class="tag">Blog</span><span class="tag">Content site</span></div>
+          <a class="card-link" href="https://heartofasinglemother.com" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">internetntvinmyarea.shop</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Internet N TV In My Area</div><span class="badge live">Live</span></div>
+          <p class="card-desc">Service-comparison storefront helping visitors find internet and TV providers in their area.</p>
+          <div class="tag-row"><span class="tag">Service site</span><span class="tag">Lead gen</span></div>
+          <a class="card-link" href="https://internetntvinmyarea.shop" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">zazconnect.online</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Zaz Connect</div><span class="badge live">Live</span></div>
+          <p class="card-desc">Connectivity and telecom-services site, built to present plans and connect customers with providers.</p>
+          <div class="tag-row"><span class="tag">Service site</span></div>
+          <a class="card-link" href="https://zazconnect.online" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">internetncabletv.shop</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Internet N Cable TV</div><span class="badge progress">In progress</span></div>
+          <p class="card-desc">Internet and cable TV deals storefront, currently being finalized for search indexing.</p>
+          <div class="tag-row"><span class="tag">Service site</span></div>
+          <a class="card-link" href="https://internetncabletv.shop" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">royalblue-chough-861620.hostingersite.com</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">Client Build (Staging)</div><span class="badge progress">In progress</span></div>
+          <p class="card-desc">Client project currently in build and staging on Hostinger, ahead of domain connection and launch.</p>
+          <div class="tag-row"><span class="tag">Staging</span></div>
+          <a class="card-link" href="https://royalblue-chough-861620.hostingersite.com" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chrome"><div class="dots"><span></span><span></span><span></span></div><div class="urlbar">ingramsparkpublisher.com</div></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-title">IngramSpark Publisher</div><span class="badge progress">In progress</span></div>
+          <p class="card-desc">Self-publishing services site for authors, currently being finalized for search indexing.</p>
+          <div class="tag-row"><span class="tag">Service site</span></div>
+          <a class="card-link" href="https://ingramsparkpublisher.com" target="_blank" rel="noopener">Visit site <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Capabilities</div>
+      <h2 class="sec-title">What I bring to a project</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>WordPress Development</h3>
+        <p>Custom theme setup, page builders (Elementor), and clean, maintainable site structures.</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div>
+        <h3>WooCommerce Stores</h3>
+        <p>Product catalogs, checkout flow, and store setup for online-selling businesses.</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+        <h3>On-page SEO</h3>
+        <p>Search-friendly structure, metadata, and indexing setup so sites are ready to be found.</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>Hosting & Deployment</h3>
+        <p>Domain connection, hosting setup, and going from staging to a live, working website.</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></div>
+        <h3>Responsive Design</h3>
+        <p>Sites that look and work right on mobile, tablet, and desktop screens.</p>
+      </div>
+      <div class="skill-card">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Niche Site Building</h3>
+        <p>Experience across e-commerce, blogs, service sites, and lead-generation pages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="contact-grid"></div>
+      <div class="contact-inner">
+        <div>
+          <h2>Let's build your next WordPress site.</h2>
+          <p class="sub">Open to freelance projects, agency collaborations, and full website builds. Reach out and let's talk about what you need.</p>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:ahmed.devxpertz@gmail.com">✉ ahmed.devxpertz@gmail.com</a>
+          <a class="contact-link" href="https://wa.me/923332838428" target="_blank" rel="noopener">💬 WhatsApp — 0333 2838428</a>
+          <a class="contact-link" href="tel:+923332838428">📞 Call — 0333 2838428</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Muhammad Ahmed Khan — WordPress Developer</footer>
+
+</body>
+</html>
